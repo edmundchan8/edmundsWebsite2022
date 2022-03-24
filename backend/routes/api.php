@@ -2,6 +2,15 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\PostController;
+
+//Public Author Route
+Route::get('/authors', [AuthorController::class, 'index']);
+Route::post('/authors', [AuthorController::class, 'store']);    //store method for the post request
+
+//Public Post Route
+Route::get('/posts', [PostController::class, 'index']);
 
 /*
 |--------------------------------------------------------------------------
