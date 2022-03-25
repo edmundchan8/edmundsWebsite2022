@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TaskController;
 
 //Public Author Route
 Route::get('/authors', [AuthorController::class, 'index']);
@@ -11,6 +12,11 @@ Route::post('/authors', [AuthorController::class, 'store']);    //store method f
 
 //Public Post Route
 Route::get('/posts', [PostController::class, 'index']);
+
+
+// Task Routes
+Route::resource('tasks', TaskController::class);
+
 
 /*
 |--------------------------------------------------------------------------
