@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Task;
+use App\Models\IDM;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TaskFactory extends Factory
+class IDMFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,7 +16,7 @@ class TaskFactory extends Factory
 
     //@var string
 
-    protected $model = Task::class;
+    protected $model = IDM::class;
 
     //@return array
 

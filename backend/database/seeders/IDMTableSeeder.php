@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Task;
-use database\factories\TaskFactory;
+use App\Models\IDM;
+use database\factories\IDMFactory;
 
-class TaskTableSeeder extends Seeder
+class IDMTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class TaskTableSeeder extends Seeder
      */
     public function run()
     {
-        // generate 50 records
-        Task::factory()->times(5)->create();
+        // generate 5 records
+        IDM::factory()->times(5)->create();
     }
 }

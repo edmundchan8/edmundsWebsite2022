@@ -4,19 +4,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\TaskController;
+use App\Http\Controllers\IDMController;
 
-//Public Author Route
-Route::get('/authors', [AuthorController::class, 'index']);
-Route::post('/authors', [AuthorController::class, 'store']);    //store method for the post request
+// IDM Routes
+Route::resource('idms', IDMController::class);
 
-//Public Post Route
-Route::get('/posts', [PostController::class, 'index']);
-
-// Task Routes
-Route::resource('tasks', TaskController::class);
-
-Route::put('/tasks/{id}',[TaskController::class, 'update']);
+//Route::put('/IDMs/{id}',[IDMController::class, 'update']);
 
 /*
 |--------------------------------------------------------------------------
