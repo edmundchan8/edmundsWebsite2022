@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
+import { Link } from 'gatsby'
 import axios from 'axios'
 
 const TaskPage = () => {
 
     const [tasks, setAllTasks] = useState([]);
-
     useEffect(() => {
         async function getAllTasks(){
             await axios.get("http://127.0.0.1:8000/api/tasks")
@@ -28,7 +28,10 @@ const TaskPage = () => {
                 <div key = {data.id}>
                     <h3>ID: {data.id}</h3>
                     <h4>Title: {data.title}</h4>
-                    <h4>Description: {data.description}</h4>
+                    <Link 
+                    to="/update"
+                    state={{ id: data.id }}
+                >Edit</Link>
                     <br/>
                 </div>
                 )

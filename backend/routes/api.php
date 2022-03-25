@@ -13,10 +13,10 @@ Route::post('/authors', [AuthorController::class, 'store']);    //store method f
 //Public Post Route
 Route::get('/posts', [PostController::class, 'index']);
 
-
 // Task Routes
 Route::resource('tasks', TaskController::class);
 
+Route::put('/tasks/{id}',[TaskController::class, 'update']);
 
 /*
 |--------------------------------------------------------------------------
