@@ -1,48 +1,48 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
-import { navigate } from 'gatsby'
+import { navigate, Link } from 'gatsby'
 
 const UpdatePage = ({location}) => {
-    const baseURL = "http://127.0.0.1:8000/api/tasks/";
+    const baseURL = "http://127.0.0.1:8000/api/idms/";
     const [data, setData] = useState([]);
-    const [title, setTitle] = useState([]);
-    const [description, setDescription] = useState([]);
+    const [assessment, setAssessment] = useState([]);
+    const [score, setScore] = useState([]);
 
     useEffect(() => {
         const url = baseURL + location.state.id;
-        async function getTask(){
+        async function getIDM(){
             axios.get(url)
             .then(response => {
                 setData(response.data);
-                setTitle(response.data.title);
-                setDescription(response.data.description);
+                setAssessment(response.data.assessment);
+                setScore(response.data.score);
             })
             .catch(error => {
                 console.log(error);
             })
         }
-        getTask();
-    }, [data.id])
+        getIDM();
+    }, [location.state.id])
 
-    function handleTitle(e){
-        setTitle(e.target.value);
+    function handleassessment(e){
+        setAssessment(e.target.value);
     }
 
-    function handleDescription(e){
-        setDescription(e.target.value);
+    function handlescore(e){
+        setScore(e.target.value);
     }
 
     function handleSubmit(e){
         e.preventDefault();
-        const updateTask = {
-            title: title,
-            description: description
+        const updateIDM = {
+            assessment: assessment,
+            score: score,
+            action_plan: data.action_plan,
+            action_plan_completed: data.action_plan_completed
         }
-        axios.put(baseURL + data.id, updateTask)
+        axios.put(baseURL + data.id, updateIDM)
             .then(response => {
-                console.log(response.data);
-                console.log(updateTask);
-                navigate('/tasks');
+                navigate('/');
             })
             .catch(error => {
                 console.log(error);
@@ -51,19 +51,19 @@ const UpdatePage = ({location}) => {
 
     return (
         <div>
-            <h3>{data.id}</h3>
-            <h3>{data.title}</h3>
-            <h3>{data.description}</h3>
-
-            <h2>Edit</h2>
+            <Link to="/">BACK</Link>
+            <h3>Assessment: {data.assessment}</h3>
+            <h4>Current Score: {data.score}</h4>
+            <h2>Start/Continue your IDM Assessment</h2>
             <form onSubmit={handleSubmit}>
-                <label>title
-                <input type="text" value={title} onChange={handleTitle} />
+                <label>assessment
+                <input type="text" value={assessment} onChange={handleassessment} />
                 </label>
                 <br/>
-                <label>description
-                <input type="text" value={description} onChange={handleDescription} />
+                <label>score
+                <input type="text" value={score} onChange={handlescore} />
                 </label>
+                <br/>
                 <input type="submit" value="Update Data"/>
             </form>
         </div>

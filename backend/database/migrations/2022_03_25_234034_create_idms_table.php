@@ -15,8 +15,10 @@ class CreateIdmsTable extends Migration
     {
         Schema::create('idms', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description');
+            $table->string('assessment');
+            $table->integer('score');
+            $table->string('action_plan');
+            $table->boolean('action_plan_completed');
             $table->timestamps();
         });
     }

@@ -1,80 +1,96 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect} from 'react'
+import { Link, navigate } from 'gatsby'
 import axios from 'axios'
 
-const IndexPage = () => {
-  const BASEURL = "http://127.0.0.1:8000/api/";
-  const [authors, setAuthors] = useState([]);
-  
-  useEffect(() => {
-    //when applicaton loads, async this method to get all authors from laravel api and return the data
-    async function getAllAuthors(){
-      try {
-        const authors = await axios.get(BASEURL + 'authors');
-        setAuthors(authors.data);
-      }
-      catch (error){
-        console.log(error);
-      }
-    }
-    //call this method once the api call is complete
-    getAllAuthors();
-  }, []);
+const IDMPage = () => {
 
-  const [author, setAuthor] = useState('');
-  const [description, setDescription] = useState('');
-  
-  const handleSubmit = (e) => {
-    axios.post(BASEURL + 'authors', {author: author, description: description})
-    .then(response => {
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-      //if there is an error, we can view the response.data of the error
-      console.log(error.response.data);
-    })
-  }
+    const [IDMs, setAllIDMs] = useState([]);
+    const [assessment, setAssessment] = useState();
+    //const [description, setDescription] = useState();
+    
+    const url = "http://127.0.0.1:8000/api/idms/";
+    useEffect(() => {
+        async function getAllIDMs(){
+            await axios.get(url)
+                .then(response => {
+                    setAllIDMs(response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            }
+            getAllIDMs();
+    }, [])
 
-  return (
-  <div>
-    My Gatsby Page
-    {
-      //filter through authors data and output each author
-      authors.map((data, i) => {
-        return (
-        <h4 key={i}>
-          {data.author}
-          <br/>
-          {data.description}
-        </h4>)
-      })
+    function handleAssessment(e){
+        setAssessment(e.target.value);
     }
 
-    {/* form - calls handleSubmit function when form submitted*/}
-    <form onSubmit={handleSubmit}>
-        <label>
-          Author:
-          <input
-            name="author"
-            type="text"
-            value={author}
-            // Each time a change is made to this input, set the author state
-            onChange={(e) => setAuthor(e.target.value)} />
-        </label>
-        <br />
-        <label>
-          Description
-          <input
-            name="description"
-            type="text"
-            value={description}
-            // Each time a change is made to this input, set the description state
-            onChange={(e) => setDescription(e.target.value)} />
-        </label>
-        <input type="submit" value="Add Author"/>
-      </form>
-  </div>
-  )
+    // function handleDescription(e){
+    //     setDescription(e.target.value);
+    // }
+
+    function handleSubmit(e){
+        const newIDM = {
+            assessment: "sdasdsadsa", 
+            score: 0, 
+            action_plan: "", 
+            action_plan_completed: false
+        };
+        axios.post(url, newIDM)
+            .then (response => {
+                navigate('/');
+            })
+            .catch(error => {
+                console.log(error.response.data);
+            })
+            e.preventDefault();
+        }
+
+    function handleDelete(e){
+        alert("Are you sure you want to delete?");
+        axios.delete(url + e.target.id)
+            .then(response =>{
+                navigate('/');
+            })
+            .catch(error =>{
+                console.log(error);
+            });
+        }
+
+    return (
+    <div>
+        <h1>This is the IDM Page</h1>
+        <h3>Add an IDM</h3>
+        <form onSubmit={handleSubmit}>
+            <label>IDM Title
+            <input type="text" value={assessment} onChange={handleAssessment} />
+            </label>
+            <br/>
+            {/* <label>description
+            <input type="text" value={description} onChange={handleDescription} />
+            </label> */}
+            <input type="submit" value="Add IDM"/>
+        </form>
+        <br/>
+        <h2>Previous IDMs</h2>
+        {
+            IDMs.map(data => {
+                return (
+                <div key = {data.id}>
+                    <h4>Title: {data.assessment}</h4>
+                    <Link to="/update" state={{ id: data.id }}>Continue Assessment</Link>
+                    <br/>
+                    <Link to="/update" state={{ id: data.id }}>Check Action Plan</Link>
+                    <br/>
+                    <Link to="/" onClick={handleDelete} id={data.id}>Delete</Link>
+                    <br/>
+                </div>
+                )
+            })
+        }
+    </div>
+    )
 }
 
-export default IndexPage
+export default IDMPage

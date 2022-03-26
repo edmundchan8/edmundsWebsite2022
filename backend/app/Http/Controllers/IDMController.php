@@ -19,13 +19,14 @@ class IDMController extends Controller
     {
         //store new values to your database
         $this->validate($request, [ //inputs are not empty or null
-            'title' => 'required',
-            'description' => 'required',
+            'assessment' => 'required'
         ]);
   
         $IDM = new IDM;
-        $IDM->title = $request->input('title'); //retrieving user inputs
-        $IDM->description = $request->input('description');  //retrieving user inputs
+        $IDM->assessment = $request->input('assessment'); //retrieving user inputs
+        $IDM->score = $request->input('score');  //retrieving user inputs
+        $IDM->action_plan = $request->input('action_plan');  //retrieving user inputs
+        $IDM->action_plan_completed = $request->input('action_plan_completed');  //retrieving user inputs
         $IDM->save(); //storing values as an object
         return $IDM; //returns the stored value if the operation was successful.  
     }
@@ -48,13 +49,14 @@ class IDMController extends Controller
     {
         //update date in database
         $this->validate($request, [ // the new values should not be null
-            'title' => 'required',
-            'description' => 'required',
+            'assessment' => 'required'
         ]);
   
         $IDM = IDM::findorFail($id); // uses the id to search values that need to be updated.
-        $IDM->title = $request->input('title'); //retrieves user input
-        $IDM->description = $request->input('description');////retrieves user input
+        $IDM->assessment = $request->input('assessment'); //retrieving user inputs
+        $IDM->score = $request->input('score');  //retrieving user inputs
+        $IDM->action_plan = $request->input('action_plan');  //retrieving user inputs
+        $IDM->action_plan_completed = $request->input('action_plan_completed');  //retrieving user inputs
         $IDM->save();//saves the values in the database. The existing data is overwritten.
         return $IDM; // retrieves the updated object from the database
     }
