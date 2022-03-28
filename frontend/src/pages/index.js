@@ -8,7 +8,9 @@ const IDMPage = () => {
     const [assessment, setAssessment] = useState();
     //const [description, setDescription] = useState();
     
+    //const url = `${process.env.GATSBY_API_URL}`
     const url = "http://127.0.0.1:8000/api/idms/";
+
     useEffect(() => {
         async function getAllIDMs(){
             await axios.get(url)
@@ -20,6 +22,7 @@ const IDMPage = () => {
                 })
             }
             getAllIDMs();
+            console.log(url);
     }, [])
 
     function handleAssessment(e){
@@ -32,7 +35,7 @@ const IDMPage = () => {
 
     function handleSubmit(e){
         const newIDM = {
-            assessment: "sdasdsadsa", 
+            assessment: assessment, 
             score: 0, 
             action_plan: "", 
             action_plan_completed: false
@@ -42,7 +45,7 @@ const IDMPage = () => {
                 navigate('/');
             })
             .catch(error => {
-                console.log(error.response.data);
+                console.log(error);
             })
             e.preventDefault();
         }
@@ -76,17 +79,24 @@ const IDMPage = () => {
         <h2>Previous IDMs</h2>
         {
             IDMs.map(data => {
-                return (
+                return data.action_plan ?
                 <div key = {data.id}>
                     <h4>Title: {data.assessment}</h4>
-                    <Link to="/update" state={{ id: data.id }}>Continue Assessment</Link>
+                    <Link to="/assessment" state={{ id: data.id }}>Continue Assessment</Link>
                     <br/>
-                    <Link to="/update" state={{ id: data.id }}>Check Action Plan</Link>
+                     <Link to="/update" state={{ id: data.id }}>Check Action Plan</Link>   
+                     <br/>
+                    <Link to="/" onClick={handleDelete} id={data.id}>Delete</Link>
+                    <br/>
+                </div>
+                :
+                <div key = {data.id}>
+                    <h4>Title: {data.assessment}</h4>
+                    <Link to="/assessment" state={{ id: data.id }}>Continue Assessment</Link>
                     <br/>
                     <Link to="/" onClick={handleDelete} id={data.id}>Delete</Link>
                     <br/>
                 </div>
-                )
             })
         }
     </div>
