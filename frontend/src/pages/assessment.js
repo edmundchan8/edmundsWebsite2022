@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import { navigate, Link } from 'gatsby'
+import "../styles/index.css";
 
 const AssessmentPage = ({location}) => {
     //`${process.env.GATSBY_API_URL}`

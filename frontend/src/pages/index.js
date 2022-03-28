@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Link, navigate } from 'gatsby'
+import "../styles/index.css";
 import axios from 'axios'
 
 const IDMPage = () => {
@@ -82,19 +83,19 @@ const IDMPage = () => {
                 return data.action_plan ?
                 <div key = {data.id}>
                     <h4>Title: {data.assessment}</h4>
-                    <Link to="/assessment" state={{ id: data.id }}>Continue Assessment</Link>
+                    <button to="/assessment" state={{ id: data.id }} className="button-styling">Continue Assessment</button>
                     <br/>
-                     <Link to="/update" state={{ id: data.id }}>Check Action Plan</Link>   
+                     <Link to="/update" state={{ id: data.id }} className="button-styling">Check Action Plan</Link>   
                      <br/>
-                    <Link to="/" onClick={handleDelete} id={data.id}>Delete</Link>
+                    <Link to="/" onClick={handleDelete} id={data.id} className="button-styling">Delete</Link>
                     <br/>
                 </div>
                 :
                 <div key = {data.id}>
                     <h4>Title: {data.assessment}</h4>
-                    <Link to="/assessment" state={{ id: data.id }}>Continue Assessment</Link>
+                    <Link to="/assessment" state={{ id: data.id }} className="button-styling">Continue Assessment</Link>
                     <br/>
-                    <Link to="/" onClick={handleDelete} id={data.id}>Delete</Link>
+                    <Link to="/" onClick={handleDelete} id={data.id} className="button-styling">Delete</Link>
                     <br/>
                 </div>
             })

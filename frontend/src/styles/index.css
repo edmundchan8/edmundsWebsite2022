@@ -1,0 +1,9 @@
+.button-styling{
+    background-color: skyblue;
+    color: white;
+    margin: 10px 0 10px 0;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
