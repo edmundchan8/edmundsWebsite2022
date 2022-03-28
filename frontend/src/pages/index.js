@@ -83,7 +83,7 @@ const IDMPage = () => {
                 return data.action_plan ?
                 <div key = {data.id}>
                     <h4>Title: {data.assessment}</h4>
-                    <button to="/assessment" state={{ id: data.id }} className="button-styling">Continue Assessment</button>
+                    <Link to="/assessment" state={{ id: data.id }} className="button-styling">Continue Assessment</Link>
                     <br/>
                      <Link to="/update" state={{ id: data.id }} className="button-styling">Check Action Plan</Link>   
                      <br/>

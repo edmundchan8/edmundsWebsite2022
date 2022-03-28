@@ -86,9 +86,9 @@ const AssessmentPage = ({location}) => {
                 <input type="text" value={score} onChange={handlescore} />
                 </label>
                 <br/>
-                <input type="button" value="Update Assessment" onClick={handleUpdate} />
+                <input type="button" value="Update Assessment" onClick={handleUpdate} className="button-styling" />
                 <br/>
-                <input type="submit" value="Submit Assessment"/>
+                <input type="submit" value="Submit Assessment" className="button-styling"/>
             </form>
         </div>
     )

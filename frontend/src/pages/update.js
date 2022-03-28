@@ -5,7 +5,7 @@ import "../styles/index.css";
 
 const UpdatePage = ({location}) => {
     //const baseUrl = `${process.env.GATSBY_API_URL}`
-    const baseUrl = "http://127.0.0.1:8001/api/idms/";
+    const baseUrl = "http://127.0.0.1:8000/api/idms/";
     const [data, setData] = useState([]);
     const [assessment, setAssessment] = useState([]);
     const [score, setScore] = useState([]);
@@ -66,7 +66,15 @@ const UpdatePage = ({location}) => {
                 <input type="text" value={score} onChange={handlescore} />
                 </label>
                 <br/>
-                <input type="submit" value="Update Data"/>
+                <br/>
+                <label> Your Action Plan
+                <br/>
+                {data.action_plan}
+                </label>
+                <br/>
+                <label>Once confirmed, you cannot edit your assessment</label>
+                <br/>
+                <input type="submit" value="Confirm Action Plan" className="button-styling" />
             </form>
         </div>
     )
